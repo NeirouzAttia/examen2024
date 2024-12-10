@@ -21,26 +21,43 @@ public class Repetition {
      */
     private final ChronoUnit myFrequency;
 
+    protected Termination myTermination;
+    private ArrayList<LocalDate> exceptions;
+
+    public ArrayList<LocalDate> getExceptions() {
+        return exceptions;
+    }
+
+    public void setExceptions(ArrayList<LocalDate> exceptions) {
+        this.exceptions = exceptions;
+    }
+
     public Repetition(ChronoUnit myFrequency) {
+        exceptions = new ArrayList<LocalDate>();
         this.myFrequency = myFrequency;
     }
 
     /**
      * Les exceptions à la répétition
+     *
      * @param date un date à laquelle l'événement ne doit pas se répéter
      */
     public void addException(LocalDate date) {
-        // TODO : implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
+        exceptions.add(date);
     }
 
     /**
      * La terminaison d'une répétition (optionnelle)
+     *
      * @param termination la terminaison de la répétition
      */
     public void setTermination(Termination termination) {
-        // TODO : implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
+        myTermination = termination;
 
     }
+
+    public Termination getTermination() {
+        return myTermination;
+    }
+
 }

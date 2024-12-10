@@ -1,2 +1,18 @@
-Ecrire ici votre réponse à la question UML.
+La différence remarquable entre le diagramme de l'ingénieur et notre diagramme est que le premier repose sur l'héritage et le deuxième sur la composition,
+chacun a quelques avantages et quelques inconvénients.
 
+Notre diagramme :
+Avantages :
+- Structure extensible puisqu'elle repose sur la composition pas sur l'héritage
+Inconvénients :
+- les méthodes setTerminaison dans la classe event peuvent générer des erreurs puisqu'on a pas divisé les types de terminaisons en 2 types distincts
+
+Diagramme proposé par l'ingénieur :
+Avantages :
+- la structure de l'héritage facilite la gestions des classes
+- il a utilisé une association unidirectionnelle pour lier la classe agenda et la classe event ce qui est meilleur puisque l'agenda ne se compose pas que par des events
+Inconvénients :
+- on n'a pas déclaré les attributs de plus que la classe mère dans les classes : RepetitiveEvent et FixedTerminationEvent
+- cette architecture de code est plus rigide parce qu'elle nous oblige d'adapter des structures plus compliquées à cause de l'héritage
+
+Pour résumer, à mon avis, le diagramme proposé par l'ingénieur est meilleur parce qu'il permet de ne pas réécrire le code et de ne pas dupliquer les méthode dans chaque classe, meme pour le temps d'exécution il est plus court.

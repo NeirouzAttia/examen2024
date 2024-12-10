@@ -20,6 +20,7 @@ public class Event {
      */
     private Duration myDuration;
 
+    protected Repetition myRepetition;
 
     /**
      * Constructs an event
@@ -35,33 +36,74 @@ public class Event {
     }
 
     public void setRepetition(ChronoUnit frequency) {
-        // TODO : implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
+        this.myRepetition = new Repetition(frequency);
     }
 
     public void addException(LocalDate date) {
-        // TODO : implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
+       this.myRepetition.addException(date);
     }
 
     public void setTermination(LocalDate terminationInclusive) {
-        // TODO : implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
+        if(myRepetition!=null){
+            myRepetition.myTermination= new Termination(terminationInclusive);
+        }
+      
     }
 
     public void setTermination(long numberOfOccurrences) {
-        // TODO : implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
+        if(myRepetition!=null){
+            myRepetition.myTermination= new Termination(numberOfOccurrences);
+        }
+       
     }
 
     public int getNumberOfOccurrences() {
-        // TODO : implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
+        if(myRepetition==null){
+            return 1;
+        }
+        else {
+                if (myRepetition.myTermination != null && myRepetition.myTermination.terminationDateInclusive() != null) {
+                    LocalDate terminationDate = myRepetition.myTermination.terminationDateInclusive();
+                    LocalDate eventDate = myStart.toLocalDate();
+                    int occ = 0;
+
+                    // Loop through the dates until the termination date
+                    while (!eventDate.isAfter(terminationDate)) {
+                        // Skip if the event is in the exceptions list
+                        if (!myRepetition.getExceptions().contains(eventDate)) {
+                            occ++;
+                        }
+                        switch (myRepetition.getFrequency()) {
+                            case DAYS:
+                                eventDate = eventDate.plusDays(1);
+                                break;
+                            case WEEKS:
+                                eventDate = eventDate.plusWeeks(1);
+                                break;
+                            case MONTHS:
+                                eventDate = eventDate.plusMonths(1);
+                                break;
+                            default:
+                                throw new UnsupportedOperationException("Unsupported repetition frequency");
+                        }
+                    }
+                    return occ;
+                }
+        }
+        return 0;
+
+
+
     }
 
     public LocalDate getTerminationDate() {
-        // TODO : implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
+        if(myRepetition!=null&&myRepetition.myTermination!=null){
+            return myRepetition.myTermination.terminationDateInclusive();
+        }
+        else{
+            throw new UnsupportedOperationException("Il y a pas de terminaison pour cet event");
+        }
+
     }
 
     /**
@@ -71,8 +113,29 @@ public class Event {
      * @return true if the event occurs on that day, false otherwise
      */
     public boolean isInDay(LocalDate aDay) {
-        // TODO : implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
+        if (myRepetition == null) {
+            return myStart.toLocalDate().equals(aDay);
+        } else {
+            LocalDate e = myStart.toLocalDate();
+            while (!e.isAfter(aDay)) {
+                if (e.equals(aDay) && (!myRepetition.getExceptions().contains(aDay) )) {
+                    return true;
+                }
+                switch (myRepetition.getFrequency()) {
+                    case DAYS:
+                        e = e.plusDays(1);
+                        break;
+                    case WEEKS:
+                        e = e.plusWeeks(1);
+                        break;
+                    case MONTHS:
+                        e = e.plusMonths(1);
+                        break;
+                }
+            }
+            return false;  // If no match found
+        }
+
     }
    
     /**

@@ -5,15 +5,31 @@ import java.time.temporal.ChronoUnit;
 import java.time.temporal.Temporal;
 
 public class Termination {
+    private LocalDate terminationDate;
+    private long nbOccurences;
+
+    public Termination(LocalDate terminationDate) {
+        this.terminationDate = terminationDate;
+    }
+
+    public Termination(long nbOccurences) {
+        this.nbOccurences = nbOccurences;
+    }
 
     public LocalDate terminationDateInclusive() {
-        // TODO : implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
+        if (terminationDate!=null) {
+            return terminationDate;
+        } else {
+            throw new UnsupportedOperationException("Terminaison n'est pas par date");
+        }
     }
 
     public long numberOfOccurrences() {
-        // TODO : implémenter cette méthode
-        throw new UnsupportedOperationException("Pas encore implémenté");
+        if (nbOccurences>0) {
+            return nbOccurences;
+        } else {
+            throw new UnsupportedOperationException("Terminaison n'est pas par occurrences");
+        }
     }
 
 
@@ -29,10 +45,10 @@ public class Termination {
      * @param terminationInclusive the date when this event ends
      * @see ChronoUnit#between(Temporal, Temporal)
      */
-    public Termination(LocalDate start, ChronoUnit frequency, LocalDate terminationInclusive) {
+   /* public Termination(LocalDate start, ChronoUnit frequency, LocalDate terminationInclusive) {
         // TODO : implémenter cette méthode
         throw new UnsupportedOperationException("Pas encore implémenté");
-    }
+    }*/
 
     /**
      * Constructs a fixed termination event ending after a number of iterations
@@ -45,9 +61,9 @@ public class Termination {
      * </UL>
      * @param numberOfOccurrences the number of occurrences of this repetitive event
      */
-    public Termination(LocalDate start, ChronoUnit frequency, long numberOfOccurrences) {
+  /*  public Termination(LocalDate start, ChronoUnit frequency, long numberOfOccurrences) {
         // TODO : implémenter cette méthode
         throw new UnsupportedOperationException("Pas encore implémenté");
-    }
+    }*/
 
 }

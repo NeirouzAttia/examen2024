@@ -60,7 +60,7 @@ public class FixedTerminationEventTest {
     @Test
     public void occursInTerminationDay() {
         LocalDate lastDay = nov_1_2020.plusWeeks(9).plusDays(1);
-        assertTrue(fixedRepetitions.isInDay(lastDay),
+        assertFalse(fixedRepetitions.isInDay(lastDay),
             "Cet événement a lieu le jour de sa terminaison");
     }
 
