@@ -67,9 +67,7 @@ public class Event {
                     LocalDate eventDate = myStart.toLocalDate();
                     int occ = 0;
 
-                    // Loop through the dates until the termination date
                     while (!eventDate.isAfter(terminationDate)) {
-                        // Skip if the event is in the exceptions list
                         if (!myRepetition.getExceptions().contains(eventDate)) {
                             occ++;
                         }
